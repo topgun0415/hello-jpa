@@ -1,7 +1,7 @@
 package hellojpa;
 
+import hellojpa.domain.Member;
 import jakarta.persistence.*;
-import org.h2.engine.User;
 
 import java.util.List;
 
@@ -18,7 +18,15 @@ public class JpaMain {
 
         try {
 
+
+
+
+
+
+
+
             // GETTER 비영속상태 (Non-persistence)
+            /*
             Member findMember = em.find(Member.class, 1L);
             System.out.println("findMember.getId() : " + findMember.getId());
             System.out.println("findMember.getName() : " + findMember.getName());
@@ -29,23 +37,20 @@ public class JpaMain {
                 System.out.println("memberList Start");
                 System.out.println(member.getId() + member.getName());
             }
+            */
 
             // 영속성
             /*
             JPA 컨테이너의 영속 컨테스트와 DB 사이에는 어떠한 레이어가 존재함.
             이는 캐싱 혹은 버퍼 같은 데이터들을 자바로 데이터베이스에 넣기쉽게 컨트롤이 가능함.
-
-
-
              */
 
-            //em.persist(findMember);
             // 비영속성
+            //em.persist(findMember);
             //em.detach(findMember);
 
             // SETTER
-            findMember.setName("ChangedName");
-
+            //findMember.setName("ChangedName");
 
             // DB에 데이터 커밋
             tx.commit();
