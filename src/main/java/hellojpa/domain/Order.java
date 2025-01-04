@@ -4,6 +4,8 @@ import hellojpa.constants.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
@@ -13,18 +15,31 @@ public class Order {
     @Column(name = "ORDER_ID")
     Long id;
 
-    Long memberId;
+    @ManyToOne()
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
     OrderStatus status;
 
+    // 양방편의 메서드
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+
+    }
+
     public Long getId() {
         return id;
     }
 
-    public Long getMemberId() {
-        return memberId;
+    public Member getMember() {
+        return member;
     }
 
     public LocalDateTime getOrderDate() {
@@ -39,8 +54,8 @@ public class Order {
         this.id = id;
     }
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public void setOrderDate(LocalDateTime orderDate) {

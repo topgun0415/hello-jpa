@@ -1,22 +1,22 @@
 package hellojpa.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class OrderItem {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "ORDER_ITEM_ID")
     Long id;
 
-    @Column(name = "ORDER_ID")
-    Long orderId;
+    @ManyToOne()
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
-    @Column(name = "ITEM_ID")
-    Long itemId;
+    @ManyToOne()
+    @JoinColumn(name = "ITEM_ID")
+    private Item item;
 
     Integer orderPrice;
 
@@ -26,12 +26,12 @@ public class OrderItem {
         return id;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Member getMember() {
+        return member;
     }
 
-    public Long getItemId() {
-        return itemId;
+    public Item getItem() {
+        return item;
     }
 
     public Integer getOrderPrice() {
@@ -46,12 +46,12 @@ public class OrderItem {
         this.id = id;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public void setOrderPrice(Integer orderPrice) {
@@ -61,4 +61,6 @@ public class OrderItem {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+    public void setOrder(Order order) {  }
 }
